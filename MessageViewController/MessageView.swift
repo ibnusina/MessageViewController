@@ -13,8 +13,8 @@ public final class MessageView: UIView, MessageTextViewListener {
     public let textView = MessageTextView()
 
     internal weak var delegate: MessageViewDelegate?
-    internal let leftButton = ExpandedHitTestButton()
-    internal let rightButton = ExpandedHitTestButton()
+    internal let leftButton: ExpandedHitTestButton = ExpandedHitTestButton(type: .system)
+    internal let rightButton: ExpandedHitTestButton = ExpandedHitTestButton(type: .system)
     internal let UITextViewContentSizeKeyPath = #keyPath(UITextView.contentSize)
     internal let topBorderLayer = CALayer()
     internal var contentView: UIView?
@@ -74,7 +74,7 @@ public final class MessageView: UIView, MessageTextViewListener {
         rightButton.titleLabel?.font = self.font ?? UIFont.systemFont(ofSize: 14)
         rightButton.imageView?.contentMode = .scaleAspectFit
         rightButton.imageView?.clipsToBounds = true
-
+        
         updateEmptyTextStates()
     }
 
@@ -368,7 +368,6 @@ public final class MessageView: UIView, MessageTextViewListener {
     internal func updateEmptyTextStates() {
         let isEmpty = text.isEmpty
         rightButton.isEnabled = !isEmpty
-        rightButton.alpha = isEmpty ? 0.25 : 1
     }
     
     internal func buttonLayoutDidChange(button: UIButton) {
